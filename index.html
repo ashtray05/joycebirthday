@@ -298,56 +298,6 @@
           </p>
         </article>
       </div>
-
-      <div class="playlist-game">
-        <div class="playlist-game-top">
-          <div>
-            <p class="section-kicker">mini game</p>
-            <h3>build joyce's playlist mood</h3>
-          </div>
-          <div class="playlist-badge" id="playlistBadge">status: unclassified</div>
-        </div>
-
-        <p class="playlist-game-copy">
-          pick one option from each row and let the website decide what kind of playlist creature you are.
-        </p>
-
-        <div class="picker-group">
-          <p class="picker-label">pick the vibe</p>
-          <div class="picker-row">
-            <button class="picker-btn" data-group="vibe" data-value="cold">cold</button>
-            <button class="picker-btn" data-group="vibe" data-value="late-night">late night</button>
-            <button class="picker-btn" data-group="vibe" data-value="feral">feral</button>
-          </div>
-        </div>
-
-        <div class="picker-group">
-          <p class="picker-label">pick the energy</p>
-          <div class="picker-row">
-            <button class="picker-btn" data-group="energy" data-value="controlled">controlled</button>
-            <button class="picker-btn" data-group="energy" data-value="sad-hot">sad hot</button>
-            <button class="picker-btn" data-group="energy" data-value="main-character">main character</button>
-          </div>
-        </div>
-
-        <div class="picker-group">
-          <p class="picker-label">pick the outcome</p>
-          <div class="picker-row">
-            <button class="picker-btn" data-group="outcome" data-value="judging">judging everyone</button>
-            <button class="picker-btn" data-group="outcome" data-value="spiralling">spiralling stylishly</button>
-            <button class="picker-btn" data-group="outcome" data-value="driving">driving at night</button>
-          </div>
-        </div>
-
-        <div class="playlist-actions">
-          <button class="pill-btn yes-btn" id="playlistResultBtn">generate result</button>
-          <button class="ghost-chip" id="playlistResetBtn">reset</button>
-        </div>
-
-        <div class="playlist-result-box" id="playlistResultBox">
-          choose your options first and let the allegations form.
-        </div>
-      </div>
     </section>
 
     <section class="bond-card glass">
@@ -415,27 +365,61 @@
     <section class="mini-game glass">
       <div class="section-heading">
         <div>
-          <p class="section-kicker">easy game because i am kind</p>
-          <h2>spin joyce's current mood</h2>
+          <p class="section-kicker">important public service</p>
+          <h2>set men up on a date</h2>
         </div>
-        <div class="game-score" id="gameScore">mood: unreadable</div>
+        <div class="game-score" id="gameScore">status: matchmaking in progress</div>
       </div>
 
-      <div class="game-area mood-game">
-        <audio id="spinSfx">
-          <source src="music/spin-sfx.mp3" type="audio/mpeg" />
-        </audio>
+      <div class="game-area date-game">
+        <div class="date-pickers">
+          <div class="date-picker-box">
+            <p class="date-picker-label">pick man 1</p>
+            <select id="manOneSelect" class="date-select">
+              <option value="">choose wisely</option>
+              <option value="gary">gary</option>
+              <option value="navin">navin</option>
+              <option value="kuna">kuna</option>
+              <option value="suresh">suresh</option>
+              <option value="shahil">shahil</option>
+              <option value="patrick">patrick</option>
+              <option value="balaji">balaji</option>
+              <option value="kesaven">kesaven (gay7)</option>
+              <option value="ashwin">ashwin</option>
+              <option value="darian">darian</option>
+            </select>
+          </div>
 
-        <div class="mood-wheel-wrap">
-          <div class="mood-flash hidden" id="moodFlash">ashwin hows ur n level boy</div>
-          <div class="mood-wheel" id="moodWheel">j</div>
+          <div class="date-picker-box">
+            <p class="date-picker-label">pick man 2</p>
+            <select id="manTwoSelect" class="date-select">
+              <option value="">choose chaos</option>
+              <option value="gary">gary</option>
+              <option value="navin">navin</option>
+              <option value="kuna">kuna</option>
+              <option value="suresh">suresh</option>
+              <option value="shahil">shahil</option>
+              <option value="patrick">patrick</option>
+              <option value="balaji">balaji</option>
+              <option value="kesaven">kesaven (gay7)</option>
+              <option value="ashwin">ashwin</option>
+              <option value="darian">darian</option>
+            </select>
+          </div>
         </div>
 
-        <p class="mood-result" id="moodResult">
-          tap spin and receive the official joyce mood of the day
-        </p>
+        <div class="date-actions">
+          <button class="game-start" id="dateMatchBtn">set them up</button>
+          <button class="ghost-chip" id="dateResetBtn">reset</button>
+        </div>
 
-        <button class="game-start" id="gameStartBtn">spin</button>
+        <div class="date-stage" id="dateStage">
+          <div class="date-stage-emoji" id="dateStageEmoji">💌</div>
+          <p class="date-stage-title" id="dateStageTitle">waiting for the allegations...</p>
+          <p class="date-stage-result" id="dateStageResult">
+            choose two men and let the website decide whether this is romance, disaster, or cinematic nonsense.
+          </p>
+        </div>
       </div>
     </section>
 
