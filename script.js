@@ -38,6 +38,12 @@ const moodResult = document.getElementById("moodResult");
 const moodFlash = document.getElementById("moodFlash");
 const spinSfx = document.getElementById("spinSfx");
 
+const playlistBadge = document.getElementById("playlistBadge");
+const playlistResultBtn = document.getElementById("playlistResultBtn");
+const playlistResetBtn = document.getElementById("playlistResetBtn");
+const playlistResultBox = document.getElementById("playlistResultBox");
+const pickerButtons = document.querySelectorAll(".picker-btn");
+
 const openLetterTop = document.getElementById("openLetterTop");
 const openLetterBtn = document.getElementById("openLetterBtn");
 const openLetterBottom = document.getElementById("openLetterBottom");
