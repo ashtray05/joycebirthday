@@ -31,18 +31,15 @@ const slides = Array.from(document.querySelectorAll(".slide"));
 const reasonBtn = document.getElementById("reasonBtn");
 const reasonBox = document.getElementById("reasonBox");
 
-const gameStartBtn = document.getElementById("gameStartBtn");
+const manOneSelect = document.getElementById("manOneSelect");
+const manTwoSelect = document.getElementById("manTwoSelect");
+const dateMatchBtn = document.getElementById("dateMatchBtn");
+const dateResetBtn = document.getElementById("dateResetBtn");
+const dateStage = document.getElementById("dateStage");
+const dateStageEmoji = document.getElementById("dateStageEmoji");
+const dateStageTitle = document.getElementById("dateStageTitle");
+const dateStageResult = document.getElementById("dateStageResult");
 const gameScore = document.getElementById("gameScore");
-const moodWheel = document.getElementById("moodWheel");
-const moodResult = document.getElementById("moodResult");
-const moodFlash = document.getElementById("moodFlash");
-const spinSfx = document.getElementById("spinSfx");
-
-const playlistBadge = document.getElementById("playlistBadge");
-const playlistResultBtn = document.getElementById("playlistResultBtn");
-const playlistResetBtn = document.getElementById("playlistResetBtn");
-const playlistResultBox = document.getElementById("playlistResultBox");
-const pickerButtons = document.querySelectorAll(".picker-btn");
 
 const openLetterTop = document.getElementById("openLetterTop");
 const openLetterBtn = document.getElementById("openLetterBtn");
@@ -56,14 +53,8 @@ const SECRET_PASSWORD = "osma jasmine";
 let currentSlide = 0;
 let autoSlideInterval = null;
 let touchStartX = 0;
-let moodSpinning = false;
 let revealState = 0;
-
-const playlistSelections = {
-  vibe: "",
-  energy: "",
-  outcome: ""
-};
+let matchBusy = false;
 
 const revealMessages = [
   {
@@ -113,21 +104,48 @@ const siblingFacts = [
   "even when i was annoying, i never stopped rating you highly."
 ];
 
-const moods = [
-  "mood: good mood ahhh then will make noise and disturb us",
-  "mood: calm face, but cfm got like 900 tabs open internally",
-  "mood: u alw do that one mouth movement when u taste drinks hahah",
-  "mood: government employee but still elite taste la..",
-  "mood: day 1 ashwin hater",
-  "mood: alw tryna be nonch asf rahhhhh",
-  "mood: wants food and also youtube/netflix time immediately",
-  "mood: silently judging but probably correct",
-  "mood: listening to music w the big ahh headphones and avoiding everyone",
-  "mood: u r this close to a major crashout atp ah.."
+const worstCombos = [
+  ["ashwin", "navin"],
+  ["kesaven", "ashwin"],
+  ["ashwin", "kuna"]
+];
+
+const ultimateRomanceCombos = [
+  ["patrick", "balaji"],
+  ["gary", "darian"],
+  ["shahil", "suresh"]
+];
+
+const goodResults = [
+  "this pairing is giving soft launch, shared playlists, suspicious eye contact, and one of them saying 'bro' before doing something fruity 😭✨ slayyy",
+  "wait this kinda ate... they would absolutely enable each other, dress up for no reason, and act like the date was lowkey casual when it was actually very much not 😌💅",
+  "oh they have chemistry unfortunately... this is very much lip bite emoji, accidental hand touch, then both acting nonchalant after 💋🫦",
+  "this duo would be serving eye contact, unserious flirting, and one dramatic crashout before dessert. purrr but make it unstable 💀✨",
+  "they would either end up in love or in matching instagram stories with suspicious captions. either way, very zesty, very slay, very yes 😭🌹",
+  "this match has elite fruit levels ngl. giving two divas, one table, zero straight explanations 💅🕯️✨",
+  "oh this is not bad at all... they would kiki, gossip, judge people together, then become weirdly codependent by week 2 😭🤭"
+];
+
+const badResults = [
+  "absolutely not. this date would combust before the appetisers arrive. nasty vibes. evacuation required 💥😭",
+  "this pairing is giving mutual irritation, bad body language, and one of them leaving to 'use the toilet' and never returning 💀",
+  "girl no. this is cursed, chaotic, and spiritually unpleasant. somebody call building management immediately 💥",
+  "the chemistry here is not romance. it is active warfare with lip balm. deeply unserious and tragically doomed 😭",
+  "this combo would produce tension, confusion, and at least one loud sigh. disaster mama. full explosion outcome 💣"
+];
+
+const roseResults = [
+  "oh this is cinema. roses everywhere. shared eye contact. soft smiles. somebody zoom in. this is giving ultimate romance fr 🌹💋✨",
+  "this pairing just unlocked soulmate allegations. very elegant. very fruity. very 'wait... why do they actually work?' 🌹😭",
+  "HELLO??? this is the premium route. the aura, the chemistry, the dramatic silence, the yearning... top tier romance mode activated 🌹🫦💫"
 ];
 
 function randomBetween(min, max) {
   return Math.random() * (max - min) + min;
+}
+
+function randomItem(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
 }
 
 function runLoader() {
@@ -249,94 +267,121 @@ function randomSiblingFact() {
   reasonBox.textContent = next;
 }
 
-function dramaticFlash() {
-  if (!moodFlash || !moodWheel) return;
+function isSamePair(a, b, x, y) {
+  return (a === x && b === y) || (a === y && b === x);
+}
 
-  moodFlash.classList.remove("hidden");
-  moodFlash.textContent = "ashwin hows ur n level boy";
-  moodFlash.classList.remove("spin-burst");
-  void moodFlash.offsetWidth;
-  moodWheel.classList.remove("spin-burst");
-  void moodWheel.offsetWidth;
-  moodWheel.classList.add("spin-burst");
+function isWorstCombo(a, b) {
+  return worstCombos.some(([x, y]) => isSamePair(a, b, x, y));
+}
 
-  setTimeout(() => {
-    moodFlash.classList.add("hidden");
-  }, 850);
+function isUltimateRomanceCombo(a, b) {
+  return ultimateRomanceCombos.some(([x, y]) => isSamePair(a, b, x, y));
+}
+
+function spawnConfetti() {
+  const colors = ["#ffffff", "#dfe7cf", "#9cab8f", "#f5f2e8", "#b6c4a5"];
+
+  for (let i = 0; i < 32; i++) {
+    const piece = document.createElement("div");
+    piece.className = "fx-piece fx-confetti";
+    piece.style.left = `${randomBetween(0, 100)}%`;
+    piece.style.top = `-10px`;
+    piece.style.background = randomItem(colors);
+    piece.style.transform = `rotate(${randomBetween(0, 360)}deg)`;
+    dateStage.appendChild(piece);
+
+    setTimeout(() => piece.remove(), 2600);
+  }
+}
+
+function spawnRoses() {
+  for (let i = 0; i < 18; i++) {
+    const rose = document.createElement("div");
+    rose.className = "fx-piece fx-rose";
+    rose.textContent = "🌹";
+    rose.style.left = `${randomBetween(0, 100)}%`;
+    rose.style.bottom = `0px`;
+    dateStage.appendChild(rose);
+
+    setTimeout(() => rose.remove(), 2800);
+  }
+}
+
+function spawnExplosions() {
+  const booms = ["💥", "💣", "☠️", "🚨"];
+
+  for (let i = 0; i < 12; i++) {
+    const boom = document.createElement("div");
+    boom.className = "fx-piece fx-boom";
+    boom.textContent = randomItem(booms);
+    boom.style.left = `${randomBetween(8, 92)}%`;
+    boom.style.top = `${randomBetween(10, 80)}%`;
+    dateStage.appendChild(boom);
+
+    setTimeout(() => boom.remove(), 1000);
+  }
 }
 
 function startGame() {
-  if (moodSpinning || !moodWheel) return;
+  if (matchBusy) return;
 
-  moodSpinning = true;
-  gameStartBtn.textContent = "spinning...";
-  moodWheel.style.transform = "rotate(1440deg) scale(1.08)";
+  const manOne = manOneSelect.value;
+  const manTwo = manTwoSelect.value;
 
-  if (spinSfx) {
-    spinSfx.currentTime = 0;
-    spinSfx.play().catch(() => {});
-  }
-
-  dramaticFlash();
-
-  setTimeout(() => {
-    const pickedMood = moods[Math.floor(Math.random() * moods.length)];
-    moodResult.textContent = pickedMood;
-    gameScore.textContent = "mood: selected";
-    gameStartBtn.textContent = "spin again";
-    moodWheel.style.transform = "rotate(0deg) scale(1)";
-    moodSpinning = false;
-  }, 1200);
-}
-
-function updatePlaylistSelection(button) {
-  const group = button.dataset.group;
-  const value = button.dataset.value;
-
-  document.querySelectorAll(`.picker-btn[data-group="${group}"]`).forEach((btn) => {
-    btn.classList.remove("active");
-  });
-
-  button.classList.add("active");
-  playlistSelections[group] = value;
-}
-
-function generatePlaylistResult() {
-  const { vibe, energy, outcome } = playlistSelections;
-
-  if (!vibe || !energy || !outcome) {
-    playlistBadge.textContent = "status: incomplete";
-    playlistResultBox.textContent = "pick one option from every row first. standards, please.";
+  if (!manOne || !manTwo) {
+    gameScore.textContent = "status: incomplete";
+    dateStageEmoji.textContent = "🤨";
+    dateStageTitle.textContent = "pick two men first";
+    dateStageResult.textContent = "u need two actual victims before i can generate nonsense.";
     return;
   }
 
-  let result = "";
-
-  if (vibe === "cold" && energy === "controlled" && outcome === "judging") {
-    result = "you are the type of listener whose playlist sounds expensive, emotionally unavailable, and correct. this is elite silent judgement music.";
-  } else if (vibe === "late-night" && energy === "sad-hot" && outcome === "driving") {
-    result = "this is giving night drive, city lights, staring out the window, and pretending life is a music video. very joyce coded honestly.";
-  } else if (vibe === "feral" && energy === "main-character" && outcome === "spiralling") {
-    result = "you have built a playlist for dramatic internal cinema. slightly unstable, still curated, somehow still cooler than everyone else's.";
-  } else {
-    result = `this playlist combination says you operate on ${vibe} vibes, ${energy} energy, and a final outcome of ${outcome}. which means your music taste is still annoyingly better than mine.`;
+  if (manOne === manTwo) {
+    gameScore.textContent = "status: self love";
+    dateStageEmoji.textContent = "🪞";
+    dateStageTitle.textContent = "you set him up with himself";
+    dateStageResult.textContent = `${manOne} x ${manTwo} is giving self reflection, inner healing, and a long walk with no eye contact. bold choice honestly 😭`;
+    return;
   }
 
-  playlistBadge.textContent = "status: classified";
-  playlistResultBox.textContent = result;
+  matchBusy = true;
+  dateMatchBtn.textContent = "cooking...";
+  gameScore.textContent = "status: analysing fruit levels";
+
+  setTimeout(() => {
+    if (isWorstCombo(manOne, manTwo)) {
+      dateStageEmoji.textContent = "💥";
+      dateStageTitle.textContent = `${manOne} x ${manTwo} = catastrophic flop`;
+      dateStageResult.textContent = randomItem(badResults);
+      gameScore.textContent = "status: explosion";
+      spawnExplosions();
+    } else if (isUltimateRomanceCombo(manOne, manTwo)) {
+      dateStageEmoji.textContent = "🌹";
+      dateStageTitle.textContent = `${manOne} x ${manTwo} = elite romance`;
+      dateStageResult.textContent = randomItem(roseResults);
+      gameScore.textContent = "status: ultimate romance";
+      spawnRoses();
+    } else {
+      dateStageEmoji.textContent = "🎉";
+      dateStageTitle.textContent = `${manOne} x ${manTwo} = suspiciously valid`;
+      dateStageResult.textContent = randomItem(goodResults);
+      gameScore.textContent = "status: slay";
+      spawnConfetti();
+    }
+
+    dateMatchBtn.textContent = "set them up again";
+    matchBusy = false;
+  }, 700);
 }
 
-function resetPlaylistGame() {
-  Object.keys(playlistSelections).forEach((key) => {
-    playlistSelections[key] = "";
-  });
-
-  pickerButtons.forEach((btn) => {
-    btn.classList.remove("active");
-  });
-
-  playlistBadge.textContent = "status: unclassified";
-  playlistResultBox.textContent = "choose your options first and let the allegations form.";
+function resetDateGame() {
+  manOneSelect.value = "";
+  manTwoSelect.value = "";
+  gameScore.textContent = "status: matchmaking in progress";
+  dateStageEmoji.textContent = "💌";
+  dateStageTitle.textContent = "waiting for the allegations...";
+  dateStageResult.textContent = "choose two men and let the website decide whether this is romance, disaster, or cinematic nonsense.";
 }
 
 function openModal() {
@@ -409,14 +454,8 @@ carouselWrap.addEventListener("touchstart", handleTouchStart, { passive: true })
 carouselWrap.addEventListener("touchend", handleTouchEnd, { passive: true });
 
 reasonBtn.addEventListener("click", randomSiblingFact);
-gameStartBtn.addEventListener("click", startGame);
-
-pickerButtons.forEach((button) => {
-  button.addEventListener("click", () => updatePlaylistSelection(button));
-});
-
-playlistResultBtn.addEventListener("click", generatePlaylistResult);
-playlistResetBtn.addEventListener("click", resetPlaylistGame);
+dateMatchBtn.addEventListener("click", startGame);
+dateResetBtn.addEventListener("click", resetDateGame);
 
 openLetterTop.addEventListener("click", openModal);
 openLetterBtn.addEventListener("click", openModal);
