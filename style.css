@@ -329,6 +329,7 @@ h3,
 
 .hero-card {
   min-height: 94vh;
+  min-height: 94dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -336,6 +337,7 @@ h3,
   position: relative;
   overflow: hidden;
 }
+
 
 .hero-card::after {
   content: "";
