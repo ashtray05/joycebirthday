@@ -1,0 +1,369 @@
+const loader = document.getElementById("loader");
+const loaderProgress = document.getElementById("loaderProgress");
+const introGate = document.getElementById("introGate");
+const passInput = document.getElementById("passInput");
+const enterBtn = document.getElementById("enterBtn");
+const introError = document.getElementById("introError");
+const siteShell = document.getElementById("siteShell");
+
+const sparkField = document.getElementById("sparkField");
+
+const startBtn = document.getElementById("startBtn");
+const startBtnTwo = document.getElementById("startBtnTwo");
+const heroReveal = document.getElementById("heroReveal");
+
+const song = document.getElementById("song");
+const playBtn = document.getElementById("playBtn");
+const pauseBtn = document.getElementById("pauseBtn");
+const restartBtn = document.getElementById("restartBtn");
+const progressFill = document.getElementById("progressFill");
+const lyricMain = document.getElementById("lyricMain");
+const lyricSub = document.getElementById("lyricSub");
+const trackLabel = document.getElementById("trackLabel");
+
+const prevSlide = document.getElementById("prevSlide");
+const nextSlide = document.getElementById("nextSlide");
+const carouselTrack = document.getElementById("carouselTrack");
+const carouselDots = document.getElementById("carouselDots");
+const carouselWrap = document.getElementById("carouselWrap");
+const slides = Array.from(document.querySelectorAll(".slide"));
+
+const reasonBtn = document.getElementById("reasonBtn");
+const reasonBox = document.getElementById("reasonBox");
+
+const gameStartBtn = document.getElementById("gameStartBtn");
+const gameScore = document.getElementById("gameScore");
+const moodWheel = document.getElementById("moodWheel");
+const moodResult = document.getElementById("moodResult");
+const moodFlash = document.getElementById("moodFlash");
+const spinSfx = document.getElementById("spinSfx");
+
+const openLetterTop = document.getElementById("openLetterTop");
+const openLetterBtn = document.getElementById("openLetterBtn");
+const openLetterBottom = document.getElementById("openLetterBottom");
+const letterModal = document.getElementById("letterModal");
+const closeModal = document.getElementById("closeModal");
+const modalOverlay = document.getElementById("modalOverlay");
+
+const SECRET_PASSWORD = "osma jasmine";
+
+let currentSlide = 0;
+let autoSlideInterval = null;
+let touchStartX = 0;
+let moodSpinning = false;
+let revealState = 0;
+
+const revealMessages = [
+  {
+    title: "welcome",
+    text: "this is your birthday website. plss act surprised hahah"
+  },
+  {
+    title: "important",
+    text: "i made this with serious effort so please rate it generously thx"
+  },
+  {
+    title: "disclaimer",
+    text: "this will contain respect, nonsense, and accurate observations lmaoo"
+  }
+];
+
+const lyricMoments = [
+  {
+    time: 0,
+    main: "issatwaimz ur childhood LAWLL",
+    sub: "sorry idk what other song to put so might as well help u live the good old n gone days"
+  },
+  {
+    time: 4,
+    main: "ur twink stanning prob started w this HAHAH",
+    sub: "i rmb kaypohing and watching twaimz videos w u"
+  },
+  {
+    time: 8,
+    main: "vine eraaaaa",
+    sub: "i rmb watching all those try not to laugh bs w u"
+  },
+];
+
+const siblingFacts = [
+  "you set a standard that made me want to do better.",
+  "i copied your taste because i trusted your judgment before i even knew that was what i was doing.",
+  "you always felt more independent than everyone else around you.",
+  "you made me take my studies more seriously when i needed it most.",
+  "even when i was being nonsense, i still looked up to you.",
+  "you have always been someone i wanted to make proud in my own way.",
+  "your taste in food and travel has been influencing me for years actually.",
+  "you are one of the reasons i stopped taking everything like a joke.",
+  "i always noticed how self sufficient you are.",
+  "you somehow manage to be stressed and still more composed than most people.",
+  "i respect that you love differently and still show up in your own way.",
+  "even when i was annoying, i never stopped rating you highly."
+];
+
+const moods = [
+  "mood: good mood ahhh then will make noise and disturb us",
+  "mood: calm face, but cfm got like 900 tabs open internally",
+  "mood: u alw do that one mouth movement when u taste drinks HAHAH",
+  "mood: government employee but still elite taste la..",
+  "mood: day 1 ashwin hater",
+  "mood: alw tryna be nonch asf rahhhhh",
+  "mood: wants food and also youtube/netflix time immediately",
+  "mood: silently judging but probably correct",
+  "mood: listening to music w the big ahh headphones and avoiding everyone",
+  "mood: u r this close to a major crashout atp ah.."
+];
+
+function randomBetween(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+function runLoader() {
+  let progress = 0;
+
+  const interval = setInterval(() => {
+    progress += randomBetween(8, 18);
+
+    if (progress >= 100) {
+      progress = 100;
+      clearInterval(interval);
+
+      setTimeout(() => {
+        loader.classList.add("hidden-loader");
+      }, 250);
+    }
+
+    loaderProgress.style.width = `${progress}%`;
+  }, 180);
+}
+
+function unlockSite() {
+  introGate.classList.add("hidden");
+  siteShell.classList.remove("hidden-site");
+}
+
+function tryPassword() {
+  const value = passInput.value.trim().toLowerCase();
+
+  if (value === SECRET_PASSWORD.toLowerCase()) {
+    unlockSite();
+  } else {
+    introError.classList.remove("hidden");
+    passInput.value = "";
+  }
+}
+
+function createAmbientSparks() {
+  for (let i = 0; i < 34; i++) {
+    const spark = document.createElement("div");
+    spark.className = "spark";
+    spark.style.left = `${randomBetween(0, 100)}vw`;
+    spark.style.top = `${randomBetween(0, 100)}vh`;
+    spark.style.animationDuration = `${randomBetween(1.6, 3.2)}s`;
+    spark.style.animationDelay = `${randomBetween(0, 2)}s`;
+    sparkField.appendChild(spark);
+  }
+}
+
+function cycleReveal() {
+  const item = revealMessages[revealState % revealMessages.length];
+  heroReveal.classList.remove("hidden");
+  heroReveal.innerHTML = `
+    <p class="reveal-title">${item.title}</p>
+    <p class="reveal-copy">${item.text}</p>
+  `;
+  revealState += 1;
+}
+
+function updateLyrics() {
+  const current = song.currentTime;
+
+  for (let i = lyricMoments.length - 1; i >= 0; i--) {
+    if (current >= lyricMoments[i].time) {
+      lyricMain.textContent = lyricMoments[i].main;
+      lyricSub.textContent = lyricMoments[i].sub;
+      break;
+    }
+  }
+
+  if (song.duration) {
+    const progress = (song.currentTime / song.duration) * 100;
+    progressFill.style.width = `${progress}%`;
+  }
+}
+
+function updateCarousel() {
+  carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+  const dots = document.querySelectorAll(".dot");
+  dots.forEach((dot, index) => {
+    dot.classList.toggle("active", index === currentSlide);
+  });
+}
+
+function goToSlide(index) {
+  currentSlide = (index + slides.length) % slides.length;
+  updateCarousel();
+}
+
+function buildDots() {
+  slides.forEach((_, index) => {
+    const dot = document.createElement("button");
+    dot.className = "dot";
+    dot.setAttribute("aria-label", `go to slide ${index + 1}`);
+    dot.addEventListener("click", () => {
+      goToSlide(index);
+      restartAutoSlide();
+    });
+    carouselDots.appendChild(dot);
+  });
+
+  updateCarousel();
+}
+
+function startAutoSlide() {
+  autoSlideInterval = setInterval(() => {
+    goToSlide(currentSlide + 1);
+  }, 3600);
+}
+
+function restartAutoSlide() {
+  clearInterval(autoSlideInterval);
+  startAutoSlide();
+}
+
+function randomSiblingFact() {
+  const next = siblingFacts[Math.floor(Math.random() * siblingFacts.length)];
+  reasonBox.textContent = next;
+}
+
+function dramaticFlash() {
+  moodFlash.classList.remove("hidden");
+  moodFlash.textContent = "uma sorru irukka";
+  moodFlash.classList.remove("spin-burst");
+  void moodFlash.offsetWidth;
+  moodWheel.classList.remove("spin-burst");
+  void moodWheel.offsetWidth;
+  moodWheel.classList.add("spin-burst");
+
+  setTimeout(() => {
+    moodFlash.classList.add("hidden");
+  }, 850);
+}
+
+function startGame() {
+  if (moodSpinning) return;
+
+  moodSpinning = true;
+  gameStartBtn.textContent = "spinning...";
+  moodWheel.style.transform = "rotate(1440deg) scale(1.08)";
+
+  if (spinSfx) {
+    spinSfx.currentTime = 0;
+    spinSfx.play().catch(() => {});
+  }
+
+  dramaticFlash();
+
+  setTimeout(() => {
+    const pickedMood = moods[Math.floor(Math.random() * moods.length)];
+    moodResult.textContent = pickedMood;
+    gameScore.textContent = "mood: selected";
+    gameStartBtn.textContent = "spin again";
+    moodWheel.style.transform = "rotate(0deg) scale(1)";
+    moodSpinning = false;
+  }, 1200);
+}
+
+function openModal() {
+  letterModal.classList.remove("hidden");
+  letterModal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+}
+
+function closeLetterModal() {
+  letterModal.classList.add("hidden");
+  letterModal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+function handleTouchStart(event) {
+  touchStartX = event.changedTouches[0].clientX;
+}
+
+function handleTouchEnd(event) {
+  const endX = event.changedTouches[0].clientX;
+  const diff = touchStartX - endX;
+
+  if (Math.abs(diff) > 40) {
+    if (diff > 0) {
+      goToSlide(currentSlide + 1);
+    } else {
+      goToSlide(currentSlide - 1);
+    }
+    restartAutoSlide();
+  }
+}
+
+enterBtn.addEventListener("click", tryPassword);
+passInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    tryPassword();
+  }
+});
+
+startBtn.addEventListener("click", cycleReveal);
+startBtnTwo.addEventListener("click", cycleReveal);
+
+playBtn.addEventListener("click", () => {
+  trackLabel.textContent = "now playing: joyce's pick";
+  song.play().catch(() => {});
+});
+
+pauseBtn.addEventListener("click", () => {
+  song.pause();
+});
+
+restartBtn.addEventListener("click", () => {
+  song.currentTime = 0;
+  song.play().catch(() => {});
+});
+
+song.addEventListener("timeupdate", updateLyrics);
+
+prevSlide.addEventListener("click", () => {
+  goToSlide(currentSlide - 1);
+  restartAutoSlide();
+});
+
+nextSlide.addEventListener("click", () => {
+  goToSlide(currentSlide + 1);
+  restartAutoSlide();
+});
+
+carouselWrap.addEventListener("touchstart", handleTouchStart, { passive: true });
+carouselWrap.addEventListener("touchend", handleTouchEnd, { passive: true });
+
+reasonBtn.addEventListener("click", randomSiblingFact);
+gameStartBtn.addEventListener("click", startGame);
+
+openLetterTop.addEventListener("click", openModal);
+openLetterBtn.addEventListener("click", openModal);
+openLetterBottom.addEventListener("click", openModal);
+closeModal.addEventListener("click", closeLetterModal);
+modalOverlay.addEventListener("click", closeLetterModal);
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeLetterModal();
+  }
+});
+
+window.addEventListener("load", () => {
+  runLoader();
+});
+
+createAmbientSparks();
+buildDots();
+startAutoSlide();
+randomSiblingFact();

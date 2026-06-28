@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>happy birthday joyce</title>
+  <meta name="description" content="birthday site for joyce" />
+  <link rel="preconnect" href="[fonts.googleapis.com](https://fonts.googleapis.com)" />
+  <link rel="preconnect" href="[fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin />
+  <link
+    href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap)"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="loader" class="loader">
+    <div class="loader-inner">
+      <div class="loader-icon">✦</div>
+      <p class="loader-text">loading something for joyce da goat...</p>
+      <div class="loader-bar">
+        <div class="loader-progress" id="loaderProgress"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="introGate" class="intro-gate">
+    <div class="intro-card glass">
+      <p class="intro-kicker">restricted access</p>
+      <h1 class="intro-title">only joyce can enter this bruu</h1>
+      <p class="intro-copy">
+        i made this for u so obviously there is a password muahaha
+      </p>
+
+      <div class="intro-input-row">
+        <input
+          id="passInput"
+          type="password"
+          placeholder="enter secret password"
+          autocomplete="off"
+        />
+        <button id="enterBtn" class="pill-btn yes-btn">enter</button>
+      </div>
+
+      <p class="intro-hint">hint: from i movie & u saved it as my contact</p>
+      <p id="introError" class="intro-error hidden">wrong. fake ahh joyce detected.</p>
+    </div>
+  </div>
+
+  <div class="bg-scene">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="grain"></div>
+    <div class="spark-field" id="sparkField"></div>
+    <div class="floating-rings"></div>
+  </div>
+
+  <main class="site-shell hidden-site" id="siteShell">
+    <section class="hero-card glass">
+      <div class="hero-topline">
+        <div class="hero-badge">for joyce, the sister i have always looked up to</div>
+        <button class="ghost-chip" id="openLetterTop">open note</button>
+      </div>
+
+      <h1 id="mainTitle">happy birthday<br />joyce</h1>
+
+      <p class="hero-copy">
+        this is your birthday site and yes i made it extra on purpose. not in a cringe way hopefully. just wanted to make something that feels like you. calm, cool, good taste, slightly intimidating, and somehow always ahead of everyone else.
+      </p>
+
+      <div class="hero-actions">
+        <button class="pill-btn yes-btn" id="startBtn">start here</button>
+        <button class="pill-btn ghost-btn" id="startBtnTwo">one more thing</button>
+      </div>
+
+      <div class="hero-reveal hidden" id="heroReveal">
+        <p class="reveal-title">welcome</p>
+        <p class="reveal-copy">
+          this is a non cringe but still meaningful birthday website. hopefully.
+        </p>
+      </div>
+
+      <div class="song-panel">
+        <div class="song-top">
+          <div class="song-meta">
+            <img src="images/cover.jpg" alt="song cover" class="song-cover" />
+            <div>
+              <p class="song-kicker">issatwaimz</p>
+              <h2>happy llama sad llama</h2>
+              <p class="song-subcopy">
+              </p>
+            </div>
+          </div>
+          <div class="now-playing" id="trackLabel">now playing: joyce's childhood</div>
+        </div>
+
+        <div class="player-controls">
+          <button class="soft-btn" id="playBtn">play</button>
+          <button class="soft-btn" id="pauseBtn">pause</button>
+          <button class="soft-btn" id="restartBtn">restart</button>
+          <button class="soft-btn" id="openLetterBtn">open note</button>
+        </div>
+
+        <div class="progress-shell">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+
+        <audio id="song" loop>
+          <source src="music/joyce-song.mp3" type="audio/mpeg" />
+        </audio>
+
+        <div class="lyric-box">
+          <p class="lyric-main" id="lyricMain">i have absolutely no explanation for this.</p>
+          <p class="lyric-sub" id="lyricSub">
+            every time i hear it i just think of u.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-card glass">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">real talk</p>
+          <h2>stuff i should probably say properly</h2>
+        </div>
+      </div>
+
+      <div class="story-grid">
+        <article class="story-box">
+          <h3>u had faith in me</h3>
+          <p>
+            especially during my n levels, you made me want to work harder and study more. you had faith in me even when i was definitely giving people reasons not to.
+          </p>
+        </article>
+
+        <article class="story-box">
+          <h3>i know i was a menace</h3>
+          <p>
+            since young i was snitching on you, being annoying, being mischievous, and not studying properly. so yes this is also a delayed acknowledgement that i was not exactly easy to manage.
+          </p>
+        </article>
+
+        <article class="story-box">
+          <h3>i copied u because u were cool</h3>
+          <p>
+            your taste in food, travel, random things, and life generally has always been good. if i copied you, it was because i rated your judgment.
+          </p>
+        </article>
+
+        <article class="story-box">
+          <h3>i respect how independent u are</h3>
+          <p>
+            that has always stood out to me. even now with work stress and adult life nonsense, you still carry yourself in a way that feels very solid.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="encouragement-card glass">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">current life of joyce</p>
+          <h2>post uni, mof, stress, all that</h2>
+        </div>
+      </div>
+
+      <div class="encouragement-box">
+        <p>
+          you graduated, started working with mof, and now you are fully in the adult world dealing with pressure, deadlines, and stress. i know that is not light.
+        </p>
+        <p>
+          but i really do believe in you. you are capable, disciplined, sharp, and way more resilient than you probably let on. even when work is draining, i know you are someone who can handle a lot and still build a really strong life for yourself.
+        </p>
+        <p>
+          i hope this year gives you more peace, better rest, nicer food, good trips, more money, and fewer annoying days.
+        </p>
+      </div>
+    </section>
+
+    <section class="funny-card glass">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">ok this one must lock in</p>
+          <h2>our funny moments tab</h2>
+        </div>
+      </div>
+
+      <div class="funny-grid">
+        <article class="funny-item"><p>when we laugh at people at church when they make sounds or their phone rings</p></article>
+        <article class="funny-item"><p>editing navin to be bald and baby faced and triggering him</p></article>
+        <article class="funny-item"><p>laughing while praying and doing stupid shit</p></article>
+        <article class="funny-item"><p>me always stimming and saying stupid shit like dimphana</p></article>
+        <article class="funny-item"><p>making fun of amma and appa mispronouncing words</p></article>
+        <article class="funny-item"><p>appa anyhow enunciating words</p></article>
+        <article class="funny-item"><p>making fun of sharifah's voice like eshween hows ur n level boy</p></article>
+        <article class="funny-item"><p>my one no one lah 2 unit 4 unit</p></article>
+        <article class="funny-item"><p>roshane couldn't hold his laughter for the gogovan song at the dining table</p></article>
+        <article class="funny-item"><p>shahil slipping down the staircase while teaching me tuition</p></article>
+        <article class="funny-item"><p>soluchana paati making fun of a lady laughing and covering her mouth while crossing the road</p></article>
+        <article class="funny-item"><p>ragebaiting uma with 38</p></article>
+      </div>
+    </section>
+
+    <section class="carousel-card glass">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">photo dump</p>
+          <h2>joyce archive</h2>
+        </div>
+        <div class="section-pill">swipe on mobile</div>
+      </div>
+
+      <div class="carousel-wrap" id="carouselWrap">
+        <button class="carousel-nav" id="prevSlide" aria-label="previous photo">‹</button>
+
+        <div class="carousel-track-wrap">
+          <div class="carousel-track" id="carouselTrack">
+            <article class="slide">
+              <img src="images/photo1.jpg" alt="joyce memory 1" />
+              <p>dj grad siol</p>
+            </article>
+
+            <article class="slide">
+              <img src="images/photo2.jpg" alt="joyce memory 2" />
+              <p>i take in LA sephora one</p>
+            </article>
+
+            <article class="slide">
+              <img src="images/photo3.jpg" alt="joyce memory 3" />
+              <p>some photo amma gave me lol</p>
+            </article>
+
+            <article class="slide">
+              <img src="images/photo4.jpg" alt="joyce memory 4" />
+              <p>braces era LOL</p>
+            </article>
+
+            <article class="slide">
+              <img src="images/photo5.jpg" alt="joyce memory 5" />
+              <p>balaji and patrick father and son</p>
+            </article>
+          </div>
+        </div>
+
+        <button class="carousel-nav" id="nextSlide" aria-label="next photo">›</button>
+      </div>
+
+      <div class="carousel-dots" id="carouselDots"></div>
+    </section>
+
+    <section class="vibes-card glass">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">music but differently</p>
+          <h2>why ur playlists are always correct</h2>
+        </div>
+      </div>
+
+      <div class="lyrics-grid">
+        <article class="lyric-note-card">
+          <p class="quoted-line">taste level</p>
+          <p class="lyric-explain">
+            your music taste has always had edge. not random for the sake of it, just actually good.
+          </p>
+        </article>
+
+        <article class="lyric-note-card">
+          <p class="quoted-line">energy</p>
+          <p class="lyric-explain">
+            the songs you like usually feel emotionally controlled but still intense underneath, which is very you.
+          </p>
+        </article>
+
+        <article class="lyric-note-card">
+          <p class="quoted-line">why it sticks</p>
+          <p class="lyric-explain">
+            your picks always sound like someone with standards chose them, not someone clicking whatever spotify throws at them.
+          </p>
+        </article>
+
+        <article class="lyric-note-card">
+          <p class="quoted-line">actual conclusion</p>
+          <p class="lyric-explain">
+            basically this whole section is just me saying your playlists have always been better than mine.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="bond-card glass">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">important btw</p>
+          <h2>more sibling facts because one section is not enough</h2>
+        </div>
+      </div>
+
+      <p class="bond-copy">
+        even if i was annoying growing up and even if we do not always say things in a deep emotional way, i always want us to stay bonded. that genuinely matters to me.
+      </p>
+
+      <div class="bond-actions">
+        <button class="pill-btn yes-btn" id="reasonBtn">show another fact</button>
+      </div>
+
+      <div class="reason-box" id="reasonBox">
+        you set a standard that made me want to do better.
+      </div>
+    </section>
+
+    <section class="celeb-card glass">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">important research</p>
+          <h2>ur celebrity crushes and ppl u like lawl</h2>
+        </div>
+      </div>
+
+      <div class="celeb-grid">
+        <article class="celeb-item">
+          <img src="images/celeb-mbj.jpg" alt="michael b jordan" />
+          <p>michael b jordan</p>
+        </article>
+
+        <article class="celeb-item">
+          <img src="images/celeb-penn.jpg" alt="penn badgley" />
+          <p>penn badgley</p>
+        </article>
+
+        <article class="celeb-item">
+          <img src="images/celeb-simone.jpg" alt="simone ashley" />
+          <p>simone ashley</p>
+        </article>
+
+        <article class="celeb-item">
+          <img src="images/celeb-metro.jpg" alt="metro boomin" />
+          <p>metro boomin</p>
+        </article>
+
+        <article class="celeb-item">
+          <img src="images/celeb-calum.jpg" alt="calum hood" />
+          <p>calum hood</p>
+        </article>
+
+        <article class="celeb-item">
+          <img src="images/dhearan.jpg" alt="dhearan" />
+          <p>dhearan devaraj</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="mini-game glass">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">easy game because i am kind</p>
+          <h2>spin joyce's current mood</h2>
+        </div>
+        <div class="game-score" id="gameScore">mood: unreadable</div>
+      </div>
+
+      <div class="game-area mood-game">
+        <audio id="spinSfx">
+          <source src="music/spin-sfx.mp3" type="audio/mpeg" />
+        </audio>
+
+        <div class="mood-wheel-wrap">
+          <div class="mood-flash hidden" id="moodFlash">ashwin hows ur n level boy</div>
+          <div class="mood-wheel" id="moodWheel">j</div>
+        </div>
+
+        <p class="mood-result" id="moodResult">
+          tap spin and receive the official joyce mood of the day
+        </p>
+
+        <button class="game-start" id="gameStartBtn">spin</button>
+      </div>
+    </section>
+
+    <section class="final-card glass">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">final note</p>
+          <h2>happy birthday joyce</h2>
+        </div>
+      </div>
+
+      <p class="final-copy">
+        thanks for being someone i could look up to even when i was not giving anyone many reasons to be proud of me. i know i do not always say these things properly, but i respect you a lot, i believe in you, and i always want us to stay close.
+      </p>
+
+      <div class="final-actions">
+        <button class="ghost-chip" id="openLetterBottom">open final note</button>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal hidden" id="letterModal" aria-hidden="true">
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal-card">
+      <button class="modal-close" id="closeModal" aria-label="close note">×</button>
+      <p class="modal-kicker">to joyce</p>
+      <h3>a proper note</h3>
+      <div class="modal-body">
+        <p>
+          happy birthday. i know i was not exactly the easiest younger brother to deal with growing up. i was annoying, mischievous, snitching, and definitely not helping your stress levels half the time.
+        </p>
+        <p>
+          but even then, i always looked up to you. i copied your taste because i thought it was good. i noticed how independent you were. and when it really mattered, especially during my n levels, you made me want to work harder and take things more seriously.
+        </p>
+        <p>
+          i know work is stressful now and adult life is probably a lot more tiring than people make it sound, but i really believe in you. i think you are capable of more than you even give yourself credit for.
+        </p>
+        <p>
+          also, i always want us to stay bonded. no matter how busy things get.
+        </p>
+        <p>
+          happy birthday joyce.<br />
+          from your annoying but loyal brother, ashy
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
