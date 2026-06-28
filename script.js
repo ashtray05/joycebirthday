@@ -151,13 +151,26 @@ function getEmojiSet(btn) {
 let cursorEl   = null;
 let trailTimer = 0;
 
-function setupCursor() {
-  if (isMobile || window.matchMedia("(hover: none)").matches) return;
+const GREEN_CURSOR_EMOJIS = ["🌿", "🍃", "🌱", "🌾", "☘️", "🌲", "🪴", "💚"];
+const GREEN_HOVER_EMOJIS  = ["🌸", "🌺", "✿", "🌼", "💐", "🌻"];
 
+function pickGreenEmoji() {
+  return GREEN_CURSOR_EMOJIS[Math.floor(Math.random() * GREEN_CURSOR_EMOJIS.length)];
+}
+
+function setupCursor() {
+  // Only run on actual pointer devices — check for touch-only
+  const isTouch = navigator.maxTouchPoints > 0 && window.innerWidth <= 760;
+  if (isTouch) return;
+
+  // Create cursor element
   cursorEl = document.createElement("div");
   cursorEl.className = "custom-cursor";
-  cursorEl.textContent = "✦";
+  cursorEl.textContent = "🌿";
   document.body.appendChild(cursorEl);
+
+  // Hide native cursor via class on body
+  document.body.classList.add("has-custom-cursor");
 
   let curX = -200, curY = -200;
   let rafId = null;
@@ -167,15 +180,17 @@ function setupCursor() {
     curY = e.clientY;
     if (!rafId) {
       rafId = requestAnimationFrame(() => {
-        cursorEl.style.left = curX + "px";
-        cursorEl.style.top  = curY + "px";
+        if (cursorEl) {
+          cursorEl.style.left = curX + "px";
+          cursorEl.style.top  = curY + "px";
+        }
         rafId = null;
       });
     }
 
     // Throttled trail
     const now = Date.now();
-    if (now - trailTimer > 55) {
+    if (now - trailTimer > 60) {
       trailTimer = now;
       spawnCursorTrail(curX, curY);
     }
@@ -183,43 +198,47 @@ function setupCursor() {
 
   document.addEventListener("mousemove", moveCursor);
 
-  document.addEventListener("mousedown", (e) => {
+  document.addEventListener("mousedown", () => {
+    if (!cursorEl) return;
     cursorEl.classList.add("pressed");
-    cursorEl.style.animation = "cursorPop 0.3s cubic-bezier(0.34,1.56,0.64,1) forwards";
-    setTimeout(() => { cursorEl.style.animation = ""; }, 320);
+    // Spin the emoji on click
+    cursorEl.textContent = pickGreenEmoji();
   });
 
   document.addEventListener("mouseup", () => {
+    if (!cursorEl) return;
     cursorEl.classList.remove("pressed");
   });
 
-  // Cursor reacts to hovering interactive elements
-  const interactiveSelectors = "button, a, input, select, .story-box, .funny-item, .celeb-item, .dot";
+  // Swap emoji when hovering interactive elements
+  const interactiveSelectors = "button, a, input, select, .story-box, .funny-item, .celeb-item";
   document.addEventListener("mouseover", (e) => {
+    if (!cursorEl) return;
     if (e.target.closest(interactiveSelectors)) {
       cursorEl.classList.add("hovering");
-      cursorEl.textContent = "✿";
+      cursorEl.textContent = GREEN_HOVER_EMOJIS[Math.floor(Math.random() * GREEN_HOVER_EMOJIS.length)];
     }
   });
   document.addEventListener("mouseout", (e) => {
+    if (!cursorEl) return;
     if (e.target.closest(interactiveSelectors)) {
       cursorEl.classList.remove("hovering");
-      cursorEl.textContent = "✦";
+      cursorEl.textContent = pickGreenEmoji();
     }
   });
 }
 
 function spawnCursorTrail(x, y) {
-  const icons = ["✦", "✧", "⊹", "·", "✿"];
+  const trailEmojis = ["🌿", "🍃", "🌱", "🌾", "✨", "💚", "⊹"];
   const el = document.createElement("div");
   el.className = "cursor-trail";
-  el.textContent = icons[Math.floor(Math.random() * icons.length)];
+  el.textContent = trailEmojis[Math.floor(Math.random() * trailEmojis.length)];
   el.style.left     = x + "px";
   el.style.top      = y + "px";
-  el.style.fontSize = `${randomBetween(7, 14)}px`;
-  el.style.color    = `rgba(245, 242, 232, ${randomBetween(0.35, 0.8)})`;
+  el.style.fontSize = `${randomBetween(10, 18)}px`;
+  el.style.opacity  = "0";
   document.body.appendChild(el);
-  setTimeout(() => el.remove(), 750);
+  setTimeout(() => el.remove(), 850);
 }
 
 /* ─── EMOJI BURST (improved) ──────────────── */
