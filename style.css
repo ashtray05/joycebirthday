@@ -25,172 +25,6 @@ html {
   scroll-behavior: smooth;
 }
 
-.playlist-hero-card {
-  margin-top: 18px;
-  padding: 24px;
-  border-radius: 26px;
-  background: rgba(255, 255, 255, 0.16);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
-}
-
-.playlist-label {
-  margin: 0 0 8px;
-  font-family: "Fredoka", sans-serif;
-  color: var(--text-soft);
-  font-size: 0.95rem;
-}
-
-.playlist-hero-card h3,
-.playlist-game-top h3 {
-  margin: 0;
-  font-family: "Fredoka", sans-serif;
-  font-size: 1.7rem;
-}
-
-.playlist-summary {
-  margin: 12px 0 0;
-  color: var(--text-soft);
-  line-height: 1.8;
-}
-
-.playlist-grid {
-  margin-top: 18px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
-
-.playlist-note-card {
-  padding: 20px;
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.14);
-  transition: transform 0.2s ease, background 0.2s ease;
-}
-
-.playlist-note-card:hover {
-  transform: translateY(-4px) scale(1.02);
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.playlist-note-title {
-  margin: 0 0 10px;
-  font-family: "Fredoka", sans-serif;
-  font-size: 1.05rem;
-}
-
-.playlist-note-text {
-  margin: 0;
-  color: var(--text-soft);
-  line-height: 1.8;
-}
-
-.playlist-game {
-  margin-top: 20px;
-  padding: 22px;
-  border-radius: 28px;
-  background: rgba(255, 255, 255, 0.12);
-}
-
-.playlist-game-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.playlist-badge {
-  padding: 10px 16px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.14);
-  color: var(--text-soft);
-  font-family: "Fredoka", sans-serif;
-  font-size: 0.95rem;
-}
-
-.playlist-game-copy {
-  margin: 14px 0 0;
-  color: var(--text-soft);
-  line-height: 1.8;
-}
-
-.picker-group {
-  margin-top: 18px;
-}
-
-.picker-label {
-  margin: 0 0 10px;
-  font-family: "Fredoka", sans-serif;
-  color: var(--text-soft);
-}
-
-.picker-row {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.picker-btn {
-  border: 0;
-  border-radius: 999px;
-  padding: 12px 18px;
-  background: rgba(255,255,255,0.14);
-  color: var(--cream);
-  transition: transform 0.18s ease, background 0.18s ease, border 0.18s ease;
-}
-
-.picker-btn:hover {
-  transform: translateY(-2px);
-  background: rgba(255,255,255,0.2);
-}
-
-.picker-btn.active {
-  background: rgba(245, 242, 232, 0.95);
-  color: var(--olive-1);
-}
-
-.playlist-actions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 22px;
-}
-
-.playlist-result-box {
-  margin-top: 18px;
-  padding: 20px;
-  border-radius: 24px;
-  background: rgba(255,255,255,0.14);
-  color: var(--text-soft);
-  line-height: 1.8;
-  min-height: 96px;
-}
-
-@media (max-width: 1040px) {
-  .playlist-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 760px) {
-  .playlist-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .playlist-game-top {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-
-@media (max-width: 480px) {
-  .picker-btn,
-  .playlist-actions .pill-btn,
-  .playlist-actions .ghost-chip {
-    width: 100%;
-  }
-}
-
 body {
   margin: 0;
   min-height: 100vh;
@@ -513,7 +347,8 @@ h3,
 .ghost-chip,
 .section-pill,
 .now-playing,
-.game-score {
+.game-score,
+.playlist-badge {
   padding: 10px 16px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.14);
@@ -524,6 +359,7 @@ h3,
 .ghost-chip {
   border: 0;
   color: var(--cream);
+  cursor: pointer;
 }
 
 h1 {
@@ -542,7 +378,12 @@ h1 {
 .final-copy,
 .modal-body p,
 .song-subcopy,
-.funny-item p {
+.funny-item p,
+.playlist-summary,
+.playlist-note-text,
+.playlist-game-copy,
+.playlist-result-box,
+.intro-copy {
   line-height: 1.8;
 }
 
@@ -555,7 +396,8 @@ h1 {
 
 .hero-actions,
 .final-actions,
-.bond-actions {
+.bond-actions,
+.playlist-actions {
   display: flex;
   justify-content: center;
   gap: 14px;
@@ -566,7 +408,8 @@ h1 {
 .pill-btn,
 .soft-btn,
 .carousel-nav,
-.game-start {
+.game-start,
+.picker-btn {
   border: 0;
   border-radius: 999px;
   padding: 15px 24px;
@@ -574,6 +417,7 @@ h1 {
   font-weight: 700;
   transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
   box-shadow: 0 14px 30px rgba(47, 57, 42, 0.14);
+  cursor: pointer;
 }
 
 .pill-btn:hover,
@@ -582,7 +426,8 @@ h1 {
 .carousel-nav:hover,
 .dot:hover,
 .modal-close:hover,
-.game-start:hover {
+.game-start:hover,
+.picker-btn:hover {
   transform: translateY(-2px) scale(1.03);
 }
 
@@ -647,18 +492,25 @@ h1 {
 
 .song-kicker,
 .section-kicker,
-.modal-kicker {
+.modal-kicker,
+.playlist-label,
+.playlist-note-title,
+.picker-label {
   margin: 0 0 6px;
   color: var(--text-soft);
   font-size: 0.95rem;
+  font-family: "Fredoka", sans-serif;
 }
 
 .song-top h2,
 .section-heading h2,
 .modal-card h3,
-.story-box h3 {
+.story-box h3,
+.playlist-hero-card h3,
+.playlist-game-top h3 {
   margin: 0;
   font-size: clamp(1.7rem, 4vw, 2.4rem);
+  font-family: "Fredoka", sans-serif;
 }
 
 .song-subcopy {
@@ -734,14 +586,16 @@ h1 {
 .story-grid,
 .lyrics-grid,
 .celeb-grid,
-.funny-grid {
+.funny-grid,
+.playlist-grid {
   margin-top: 18px;
   display: grid;
   gap: 16px;
 }
 
 .story-grid,
-.lyrics-grid {
+.lyrics-grid,
+.playlist-grid {
   grid-template-columns: repeat(2, 1fr);
 }
 
@@ -751,7 +605,8 @@ h1 {
 
 .story-box,
 .lyric-note-card,
-.funny-item {
+.funny-item,
+.playlist-note-card {
   padding: 20px;
   border-radius: 24px;
   background: rgba(255, 255, 255, 0.14);
@@ -761,7 +616,8 @@ h1 {
 .story-box:hover,
 .lyric-note-card:hover,
 .funny-item:hover,
-.celeb-item:hover {
+.celeb-item:hover,
+.playlist-note-card:hover {
   transform: translateY(-4px) scale(1.02);
   background: rgba(255, 255, 255, 0.2);
 }
@@ -843,6 +699,7 @@ h1 {
   border: 0;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.44);
+  cursor: pointer;
 }
 
 .dot.active {
@@ -872,6 +729,69 @@ h1 {
 .celeb-item p {
   margin: 12px 0 4px;
   font-family: "Fredoka", sans-serif;
+}
+
+.playlist-hero-card {
+  margin-top: 18px;
+  padding: 24px;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.playlist-summary {
+  margin: 12px 0 0;
+  color: var(--text-soft);
+}
+
+.playlist-game {
+  margin-top: 20px;
+  padding: 22px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.playlist-game-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.playlist-game-copy {
+  margin: 14px 0 0;
+  color: var(--text-soft);
+}
+
+.picker-group {
+  margin-top: 18px;
+}
+
+.picker-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.picker-btn {
+  background: rgba(255,255,255,0.14);
+  color: var(--cream);
+  box-shadow: none;
+}
+
+.picker-btn.active {
+  background: rgba(245, 242, 232, 0.95);
+  color: var(--olive-1);
+}
+
+.playlist-result-box {
+  margin-top: 18px;
+  padding: 20px;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.14);
+  color: var(--text-soft);
+  min-height: 96px;
 }
 
 .mood-game {
@@ -978,6 +898,7 @@ h1 {
   background: #dfe6d3;
   color: var(--olive-1);
   font-size: 1.6rem;
+  cursor: pointer;
 }
 
 @keyframes drift {
@@ -1065,7 +986,8 @@ h1 {
 @media (max-width: 1040px) {
   .story-grid,
   .lyrics-grid,
-  .celeb-grid {
+  .celeb-grid,
+  .playlist-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -1116,14 +1038,16 @@ h1 {
 
   .hero-topline,
   .song-top,
-  .section-heading {
+  .section-heading,
+  .playlist-game-top {
     flex-direction: column;
     align-items: flex-start;
   }
 
   .hero-actions,
   .bond-actions,
-  .final-actions {
+  .final-actions,
+  .playlist-actions {
     justify-content: flex-start;
   }
 
@@ -1149,7 +1073,8 @@ h1 {
   .story-grid,
   .lyrics-grid,
   .celeb-grid,
-  .funny-grid {
+  .funny-grid,
+  .playlist-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1186,14 +1111,20 @@ h1 {
   .bond-copy,
   .final-copy,
   .modal-body p,
-  .funny-item p {
+  .funny-item p,
+  .playlist-summary,
+  .playlist-note-text,
+  .playlist-game-copy,
+  .playlist-result-box,
+  .intro-copy {
     font-size: 0.98rem;
   }
 
   .pill-btn,
   .soft-btn,
   .ghost-chip,
-  .game-start {
+  .game-start,
+  .picker-btn {
     width: 100%;
   }
 
