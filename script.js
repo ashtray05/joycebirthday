@@ -94,14 +94,14 @@ const siblingFacts = [
   "i copied your taste because i trusted your judgment before i even knew that was what i was doing.",
   "you always felt more independent than everyone else around you.",
   "you made me take my studies more seriously when i needed it most.",
-  "even when i was being nonsense, i still looked up to you.",
+  "i think i will want to look up to you and u set a great example.",
   "you have always been someone i wanted to make proud in my own way.",
   "your taste in food and travel has been influencing me for years actually.",
   "you are one of the reasons i stopped taking everything like a joke.",
   "i always noticed how self sufficient you are.",
   "you somehow manage to be stressed and still more composed than most people.",
   "i respect that you love differently and still show up in your own way.",
-  "even when i was annoying, i never stopped rating you highly."
+  "even when i was annoying, you would always forgive and treat me well hahah."
 ];
 
 const worstCombos = [
