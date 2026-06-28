@@ -25,6 +25,172 @@ html {
   scroll-behavior: smooth;
 }
 
+.playlist-hero-card {
+  margin-top: 18px;
+  padding: 24px;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.playlist-label {
+  margin: 0 0 8px;
+  font-family: "Fredoka", sans-serif;
+  color: var(--text-soft);
+  font-size: 0.95rem;
+}
+
+.playlist-hero-card h3,
+.playlist-game-top h3 {
+  margin: 0;
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.7rem;
+}
+
+.playlist-summary {
+  margin: 12px 0 0;
+  color: var(--text-soft);
+  line-height: 1.8;
+}
+
+.playlist-grid {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.playlist-note-card {
+  padding: 20px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.14);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.playlist-note-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.playlist-note-title {
+  margin: 0 0 10px;
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.05rem;
+}
+
+.playlist-note-text {
+  margin: 0;
+  color: var(--text-soft);
+  line-height: 1.8;
+}
+
+.playlist-game {
+  margin-top: 20px;
+  padding: 22px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.playlist-game-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.playlist-badge {
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.14);
+  color: var(--text-soft);
+  font-family: "Fredoka", sans-serif;
+  font-size: 0.95rem;
+}
+
+.playlist-game-copy {
+  margin: 14px 0 0;
+  color: var(--text-soft);
+  line-height: 1.8;
+}
+
+.picker-group {
+  margin-top: 18px;
+}
+
+.picker-label {
+  margin: 0 0 10px;
+  font-family: "Fredoka", sans-serif;
+  color: var(--text-soft);
+}
+
+.picker-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.picker-btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 18px;
+  background: rgba(255,255,255,0.14);
+  color: var(--cream);
+  transition: transform 0.18s ease, background 0.18s ease, border 0.18s ease;
+}
+
+.picker-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.2);
+}
+
+.picker-btn.active {
+  background: rgba(245, 242, 232, 0.95);
+  color: var(--olive-1);
+}
+
+.playlist-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+
+.playlist-result-box {
+  margin-top: 18px;
+  padding: 20px;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.14);
+  color: var(--text-soft);
+  line-height: 1.8;
+  min-height: 96px;
+}
+
+@media (max-width: 1040px) {
+  .playlist-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .playlist-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .playlist-game-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .picker-btn,
+  .playlist-actions .pill-btn,
+  .playlist-actions .ghost-chip {
+    width: 100%;
+  }
+}
+
 body {
   margin: 0;
   min-height: 100vh;
