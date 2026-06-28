@@ -59,6 +59,12 @@ let touchStartX = 0;
 let moodSpinning = false;
 let revealState = 0;
 
+const playlistSelections = {
+  vibe: "",
+  energy: "",
+  outcome: ""
+};
+
 const revealMessages = [
   {
     title: "welcome",
@@ -77,19 +83,19 @@ const revealMessages = [
 const lyricMoments = [
   {
     time: 0,
-    main: "issatwaimz ur childhood LAWLL",
+    main: "issatwaimz ur childhood lawll",
     sub: "sorry idk what other song to put so might as well help u live the good old n gone days"
   },
   {
     time: 4,
-    main: "ur twink stanning prob started w this HAHAH",
+    main: "ur twink stanning prob started w this hahah",
     sub: "i rmb kaypohing and watching twaimz videos w u"
   },
   {
     time: 8,
     main: "vine eraaaaa",
     sub: "i rmb watching all those try not to laugh bs w u"
-  },
+  }
 ];
 
 const siblingFacts = [
@@ -110,7 +116,7 @@ const siblingFacts = [
 const moods = [
   "mood: good mood ahhh then will make noise and disturb us",
   "mood: calm face, but cfm got like 900 tabs open internally",
-  "mood: u alw do that one mouth movement when u taste drinks HAHAH",
+  "mood: u alw do that one mouth movement when u taste drinks hahah",
   "mood: government employee but still elite taste la..",
   "mood: day 1 ashwin hater",
   "mood: alw tryna be nonch asf rahhhhh",
@@ -244,8 +250,10 @@ function randomSiblingFact() {
 }
 
 function dramaticFlash() {
+  if (!moodFlash || !moodWheel) return;
+
   moodFlash.classList.remove("hidden");
-  moodFlash.textContent = "uma sorru irukka";
+  moodFlash.textContent = "ashwin hows ur n level boy";
   moodFlash.classList.remove("spin-burst");
   void moodFlash.offsetWidth;
   moodWheel.classList.remove("spin-burst");
@@ -258,7 +266,7 @@ function dramaticFlash() {
 }
 
 function startGame() {
-  if (moodSpinning) return;
+  if (moodSpinning || !moodWheel) return;
 
   moodSpinning = true;
   gameStartBtn.textContent = "spinning...";
@@ -279,6 +287,56 @@ function startGame() {
     moodWheel.style.transform = "rotate(0deg) scale(1)";
     moodSpinning = false;
   }, 1200);
+}
+
+function updatePlaylistSelection(button) {
+  const group = button.dataset.group;
+  const value = button.dataset.value;
+
+  document.querySelectorAll(`.picker-btn[data-group="${group}"]`).forEach((btn) => {
+    btn.classList.remove("active");
+  });
+
+  button.classList.add("active");
+  playlistSelections[group] = value;
+}
+
+function generatePlaylistResult() {
+  const { vibe, energy, outcome } = playlistSelections;
+
+  if (!vibe || !energy || !outcome) {
+    playlistBadge.textContent = "status: incomplete";
+    playlistResultBox.textContent = "pick one option from every row first. standards, please.";
+    return;
+  }
+
+  let result = "";
+
+  if (vibe === "cold" && energy === "controlled" && outcome === "judging") {
+    result = "you are the type of listener whose playlist sounds expensive, emotionally unavailable, and correct. this is elite silent judgement music.";
+  } else if (vibe === "late-night" && energy === "sad-hot" && outcome === "driving") {
+    result = "this is giving night drive, city lights, staring out the window, and pretending life is a music video. very joyce coded honestly.";
+  } else if (vibe === "feral" && energy === "main-character" && outcome === "spiralling") {
+    result = "you have built a playlist for dramatic internal cinema. slightly unstable, still curated, somehow still cooler than everyone else's.";
+  } else {
+    result = `this playlist combination says you operate on ${vibe} vibes, ${energy} energy, and a final outcome of ${outcome}. which means your music taste is still annoyingly better than mine.`;
+  }
+
+  playlistBadge.textContent = "status: classified";
+  playlistResultBox.textContent = result;
+}
+
+function resetPlaylistGame() {
+  Object.keys(playlistSelections).forEach((key) => {
+    playlistSelections[key] = "";
+  });
+
+  pickerButtons.forEach((btn) => {
+    btn.classList.remove("active");
+  });
+
+  playlistBadge.textContent = "status: unclassified";
+  playlistResultBox.textContent = "choose your options first and let the allegations form.";
 }
 
 function openModal() {
@@ -352,6 +410,13 @@ carouselWrap.addEventListener("touchend", handleTouchEnd, { passive: true });
 
 reasonBtn.addEventListener("click", randomSiblingFact);
 gameStartBtn.addEventListener("click", startGame);
+
+pickerButtons.forEach((button) => {
+  button.addEventListener("click", () => updatePlaylistSelection(button));
+});
+
+playlistResultBtn.addEventListener("click", generatePlaylistResult);
+playlistResetBtn.addEventListener("click", resetPlaylistGame);
 
 openLetterTop.addEventListener("click", openModal);
 openLetterBtn.addEventListener("click", openModal);
